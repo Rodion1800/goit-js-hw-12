@@ -91,8 +91,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
       lightbox.refresh();
 
+      const galleryCards = document.querySelectorAll('.card');
+      if (galleryCards.length > 0) {
+        const cardHeight = galleryCards[0].getBoundingClientRect().height;
+        window.scrollBy({
+          top: cardHeight * 2,
+          behavior: 'smooth',
+        });
+      }
+
       if (page * perPage >= data.totalHits) {
         fetchLoadMoreBtn.style.display = 'none';
+        iziToast.info({
+          message: "We're sorry, but you've reached the end of search results.",
+        });
       }
     } catch (error) {
       iziToast.error({
